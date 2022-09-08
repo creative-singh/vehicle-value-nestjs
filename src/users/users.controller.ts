@@ -4,15 +4,25 @@ import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserDto } from './dtos/user.dto';
 import { UsersService } from './users.service';
+import { AuthService } from "./auth.service";
 
 @Controller('auth')
 @Serialize(UserDto)   // No password DTO
 export class UsersController {
-  constructor(private usersService: UsersService) { }
+  constructor(
+    private usersService: UsersService,
+    private authService: AuthService
+  ) { }
 
   @Post("/signup")
   createrUser(@Body() body: CreateUserDto) {
-    this.usersService.create(body.email, body.password);
+    // this.usersService.create(body.email, body.password);
+    return this.authService.signup(body.email, body.password);
+  };
+
+  @Post("/signin")
+  signin(@Body() body: CreateUserDto) {
+    return this.authService.signin(body.email, body.password);
   };
 
   // Line number 18 and 19 are same, in line 19, we initialized our own decorator
