@@ -12,6 +12,9 @@ export class AuthService {
   async signup(email: string, password: string) {
     // See if email is in use
     const user = await this.usersService.find(email);
+
+    console.log("user is here", user);
+
     if (user.length) {
       throw new BadRequestException("Email already in use.");
     }
