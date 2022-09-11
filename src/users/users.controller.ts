@@ -5,6 +5,7 @@ import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserDto } from './dtos/user.dto';
 import { UsersService } from './users.service';
 import { AuthService } from "./auth.service";
+import { CurrentUser } from './decorators/current-user.decorator';
 
 @Controller('auth')
 @Serialize(UserDto)   // No password DTO
@@ -35,8 +36,16 @@ export class UsersController {
   };
 
   @Get("/whoami")
-  whoAmI(@Session() session: any) {
-    return this.usersService.findOne(session.userId);
+  // whoAmI(@Session() session: any) {
+  //   return this.usersService.findOne(session.userId);
+  // }
+  whoAmI(@CurrentUser() user: string) {
+    return user;
+  }
+
+  @Post("/signout")
+  signOut(@Session() session: any) {
+    session.userId = null;
   }
 
   // Line number 18 and 19 are same, in line 19, we initialized our own decorator
