@@ -23,7 +23,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService) => {
-        console.log("config", config.get<string>("DB_NAME"));
         return {
           type: "sqlite",
           database: config.get<string>("DB_NAME"),
