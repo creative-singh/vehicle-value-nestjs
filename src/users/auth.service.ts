@@ -11,11 +11,11 @@ export class AuthService {
 
   async signup(email: string, password: string) {
     // See if email is in use
-    const user = await this.usersService.find(email);
+    const users = await this.usersService.find(email);
 
-    console.log("user is here", user);
+    console.log("user is here", users);
 
-    if (user.length) {
+    if (users.length) {
       throw new BadRequestException("Email already in use.");
     }
 
@@ -33,11 +33,10 @@ export class AuthService {
     console.log("result: ", result);
 
     // Create a new user and save it
-    const newUser = await this.usersService.create(email, result);
+    const user = await this.usersService.create(email, result);
 
     // return the user
-    return newUser;
-
+    return user;
   };
 
   async signin(email: string, password: string) {

@@ -20,13 +20,13 @@ export class UsersController {
   @Post("/signup")
   async createrUser(@Body() body: CreateUserDto, @Session() session: any) {
     // this.usersService.create(body.email, body.password);
-    try {
-      const user = await this.authService.signup(body.email, body.password);
-      session.userId = user.id;
-      return user;
-    } catch (err) {
-      console.log("ERROR IN createrUser", err);
-    }
+    // try {
+    const user = await this.authService.signup(body.email, body.password);
+    session.userId = user.id;
+    return user;
+    // } catch (err) {
+    // console.log("ERROR IN createrUser", err);
+    // }
 
   };
 
