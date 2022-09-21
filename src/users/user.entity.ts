@@ -12,6 +12,10 @@ export class User {
     @Column()
     password: string;
 
+    // Will make it false, while deployment
+    @Column({ default: true })
+    admin: boolean;
+
     @OneToMany(() => Report, (report) => report.user)
     reports: Report[];
     // Array becoz we will have multiple report associate with 1 user
